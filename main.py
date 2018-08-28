@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from index import index_repos
-from update import update_repos
-from pindexer import index_repos_parallel
-from update import test
 import logging
 import os
 import time
@@ -36,19 +33,22 @@ def check_es_configs(config):
     if 'host' not in config.keys():
         raise KeyError("Elasticsearch host is missing in elasticsearch.conf")
         exit(1)
-    if 'index' not in config.keys():
-        raise KeyError("Elasticsearch index is missing in elasticsearch.conf")
+    if 'repo_index' not in config.keys():
+        raise KeyError("Elasticsearch repo_index is missing in elasticsearch.conf")
+        exit(1)
+    if 'file_index' not in config.keys():
+        raise KeyError("Elasticsearch file_index is missing in elasticsearch.conf")
+        exit(1)
+    if 'commit_index' not in config.keys():
+        raise KeyError("Elasticsearch commit_index is missing in elasticsearch.conf")
         exit(1)
 
 def check_bitbucket_configs(config):
-    if 'key' not in config.keys():
-        raise KeyError("Key is missing in bitbucket.conf")
+    if 'token' not in config.keys():
+        raise KeyError("Bitbucket token is missing in bitbucket.conf")
         exit(1)
-    if 'secret' not in config.keys():
-        raise KeyError("secret is missing in bitbucket.conf")
-        exit(1)
-    if 'v2_endpoint' not in config.keys():
-        raise KeyError("v2_endpoint is missing in bitbucket.conf")
+    if 'api_endpoint' not in config.keys():
+        raise KeyError("Bitbucket api_endpoint is missing in bitbucket.conf")
         exit(1)
 
 def last_run():
@@ -61,7 +61,6 @@ def last_run():
     else:
         since = 0
     return since
-
 
 def write_history(lastrun):
     '''
@@ -82,13 +81,6 @@ def init_elasticsearch():
     except:
         logging.error("elasticsearch is not running")
         exit(1)
-    if not es_conn.indices.exists(index=config['index']):
-        index_settings = json.loads(open("index-settings.json", "r").read())
-        es_conn.indices.create(index=config['index'], body=index_settings)
-
-        ## read mapping(s)
-        file_mapping = json.loads(open("file_mapping.json", "r").read())
-        es_conn.indices.put_mapping(index=config['index'], doc_type='file', body=file_mapping)
     return es_conn
 
 
@@ -97,11 +89,11 @@ def main():
     bitbucket_config = {}
     execfile("bitbucket.conf", bitbucket_config)
     check_bitbucket_configs(bitbucket_config)
-    auth = OAuth1(bitbucket_config['key'], bitbucket_config['secret'])
+    headers = {"Authorization":"Bearer "+bitbucket_config['token']}
 
     ## Bitbucket connection:
     s = requests.Session()
-    s.auth = auth
+    s.headers = headers
 
     ## elasticsearch connection:
     es_conn = init_elasticsearch()
@@ -114,19 +106,8 @@ def main():
         lastrun = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime())
         index_repos(s, es_conn)
         write_history(lastrun)
-    elif args.index == "update":
-        lastrun = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime())
-        since = last_run()
-        update_repos(s, es_conn, since)
-        write_history(lastrun)
-    elif args.index == "pindex":
-        lastrun = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime())
-        index_repos_parallel(s, es_conn)
-        write_history(lastrun)
-    elif args.index == "test":
-        test(s)
     else:
-        raise ValueError("Unknown mode. Please use one of the following:\n index\n update\n pindex")
+        raise ValueError("Unknown mode. Please use one of the following:\n index")
 
 atexit.register(write_history, lastrun)
 

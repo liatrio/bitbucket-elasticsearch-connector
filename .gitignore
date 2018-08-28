@@ -4,3 +4,4 @@ bitbucket.conf
 *pyc
 /logs/*
 bitbucket-connector.log
+.vscode
