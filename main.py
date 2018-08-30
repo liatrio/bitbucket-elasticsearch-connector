@@ -77,11 +77,19 @@ def init_elasticsearch():
     execfile("elasticsearch.conf", config)
     check_es_configs(config)
     try:
-        es_conn = Elasticsearch(config['host'], max_retries=8)
+        es = Elasticsearch(config['host'], max_retries=8)
     except:
         logging.error("elasticsearch is not running")
         exit(1)
-    return es_conn
+    if not es.indices.exists(index=config['repo_index']):
+        es.indices.create(index=config['repo_index'])
+    if not es.indices.exists(index=config['file_index']):
+        es.indices.create(index=config['file_index'])
+    if not es.indices.exists(index=config['commit_index']):
+        es.indices.create(index=config['commit_index'])
+        commit_mapping = json.loads(open("commit_mapping.json", "r").read())
+        es.indices.put_mapping(index=config['commit_index'], doc_type='_doc', body=commit_mapping)
+    return es
 
 
 def main():
