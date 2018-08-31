@@ -1,138 +1,288 @@
 {
-    "_doc":{
-        "properties":{
-        "author":{
-            "properties":{
-                "active":{
-                    "type":"boolean"
-                },
-                "displayName":{
-                    "type":"text"
-                },
-                "emailAddress":{
-                    "type":"text"
-                },
-                "id":{
-                    "type":"long"
-                },
-                "links":{
-                    "properties":{
-                    "self":{
-                        "properties":{
-                            "href":{
-                                "type":"text"
+    "_doc": {
+        "properties": {
+            "author": {
+                "properties": {
+                    "active": {
+                        "type": "boolean"
+                    },
+                    "displayName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "emailAddress": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "id": {
+                        "type": "long"
+                    },
+                    "links": {
+                        "properties": {
+                            "self": {
+                                "properties": {
+                                    "href": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "ignore_above": 256
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                },
-                "name":{
-                    "type":"text"
-                },
-                "slug":{
-                    "type":"text"
-                },
-                "type":{
-                    "type":"text"
-                }
-            }
-        },
-        "authorTimestamp":{
-            "type":"date"
-        },
-        "branch":{
-            "properties":{
-                "displayId":{
-                    "type":"text"
-                },
-                "id":{
-                    "type":"text"
-                },
-                "isDefault":{
-                    "type":"boolean"
-                },
-                "latestChangeset":{
-                    "type":"text"
-                },
-                "latestCommit":{
-                    "type":"text"
-                },
-                "type":{
-                    "type":"text"
-                }
-            }
-        },
-        "committer":{
-            "properties":{
-                "active":{
-                    "type":"boolean"
-                },
-                "displayName":{
-                    "type":"text"
-                },
-                "emailAddress":{
-                    "type":"text"
-                },
-                "id":{
-                    "type":"long"
-                },
-                "links":{
-                    "properties":{
-                    "self":{
-                        "properties":{
-                            "href":{
-                                "type":"text"
+                    },
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "slug": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "type": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
                             }
                         }
                     }
+                }
+            },
+            "authorTimestamp": {
+                "type": "date"
+            },
+            "branch": {
+                "properties": {
+                    "displayId": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "id": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "isDefault": {
+                        "type": "boolean"
+                    },
+                    "latestChangeset": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "latestCommit": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "type": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
                     }
-                },
-                "name":{
-                    "type":"text"
-                },
-                "slug":{
-                    "type":"text"
-                },
-                "type":{
-                    "type":"text"
+                }
+            },
+            "committer": {
+                "properties": {
+                    "active": {
+                        "type": "boolean"
+                    },
+                    "displayName": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "emailAddress": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "id": {
+                        "type": "long"
+                    },
+                    "links": {
+                        "properties": {
+                            "self": {
+                                "properties": {
+                                    "href": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "ignore_above": 256
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "slug": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "type": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    }
+                }
+            },
+            "committerTimestamp": {
+                "type": "date"
+            },
+            "displayId": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "id": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "message": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "parents": {
+                "properties": {
+                    "displayId": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "id": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    }
+                }
+            },
+            "project_key": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "properties": {
+                "properties": {
+                    "jira-key": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    }
+                }
+            },
+            "repo_name": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
                 }
             }
-        },
-        "committerTimestamp":{
-            "type":"date"
-        },
-        "displayId":{
-            "type":"text"
-        },
-        "id":{
-            "type":"text"
-        },
-        "message":{
-            "type":"text"
-        },
-        "parents":{
-            "properties":{
-                "displayId":{
-                    "type":"text"
-                },
-                "id":{
-                    "type":"text"
-                }
-            }
-        },
-        "project_key":{
-            "type":"text"
-        },
-        "properties":{
-            "properties":{
-                "jira-key":{
-                    "type":"text"
-                }
-            }
-        },
-        "repo_name":{
-            "type":"text"
-        }
         }
     }
- }
+}
